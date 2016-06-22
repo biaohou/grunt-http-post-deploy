@@ -17,6 +17,11 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-http-post-deploy');
 ```
 
+## 一句话说明 "http_post_deploy" 能做什么！
+
+### 一句话
+它帮助开发者将grunt后的文件快速部署到任意测试或线上机器，且支持动(态)、静(态)文件分离部署，即使动(态)、静(态)文件不在同一台服务器上也没问题！
+
 ## The "http_post_deploy" task
 
 ### Overview
@@ -28,10 +33,11 @@ grunt.initConfig({
 		default_options : {
 			options : {
 				headers : {Authorization : "Token 1234"},
-				from : "src/pic/",
+				from : "src/",
 				to : "",
-				static_to : "",
 				receiver : "",
+				static_to : "",
+				static_receiver : "",
 				rejectUnauthorized : false,
 				success : function(data) {}
 			}
@@ -54,13 +60,17 @@ Type: `String`
 Type: `String`
 服务器上的部署路径，会保持原有文件的目录结构；如果static_to没有指定，则全部都移到该目录下
 
-#### options.static_to
-Type: `String`
-同上，可选项，专门给静态资源分配的路径，用于cdn，静态文件包括*.{js,css,png,jpg}
-
 #### options.receiver
 Type: `String`
-服务器上receiver脚本地址，本例中使用php版本，直接读取文件流$_FILES和to路径$_POST["to"]即可
+服务器上receiver脚本地址，本例中使用php版本，直接读取文件流$_FILES和to路径$_POST["to"]即可，如果static_receiver没有指定 则都用这个 请保证要上传的目录和该文件在同一台服务器上或同一个域名内
+
+#### options.static_to
+Type: `String`
+可选项，同上to，专门给静态资源分配的路径，静态文件包括*.{js,css,png,jpg,gif} 如果没有则用上边的to
+
+#### options.static_receiver
+Type: `String`
+可选项，同上receiver，专门接收静态资源文件的服务器脚本 如果没有则用上边的receiver，本次新增
 
 #### options.rejectUnauthorized
 Type: `Boolean`

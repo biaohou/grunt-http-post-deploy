@@ -1,6 +1,6 @@
 {
   "name": "grunt-http-post-deploy",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "grunt-http-post-deploy",
   "main": "Gruntfile.js",
   "dependencies": {
